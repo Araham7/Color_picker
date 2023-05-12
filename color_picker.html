@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To center the content</title>
+
+    <style>
+      * {
+        font-family: "Courier New", Courier, monospace;
+      }
+
+      body {
+        /* background-image: url("nshm.jpg"); */
+        background-color: mediumpurple;
+      }
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+
+      #Show_picked_color {
+        border: 2px solid rgb(0, 3, 2);
+        height: 50vh;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        width: 800px;
+        margin: auto;
+        border-radius: 650px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        background-color: white;
+      }
+
+      #div {
+        /* border: 5px solid rgb(61, 187, 134); */
+        font-weight: 900;
+        font-size: xx-large;
+        box-sizing: border-box;
+        margin: auto;
+      }
+
+      #heading {
+        display: flex;
+        justify-content: center;
+      }
+
+      #btn {
+        display: flex;
+        justify-content: center;
+        align-content: normal;
+      }
+      #submit-btn {
+        border-radius: 40px;
+        width: 180px;
+        height: 70px;
+        font-size: large;
+        font-weight: 900;
+        margin-top: 15px;
+      }
+
+      #Select_color {
+        /* margin-top: 12px; */
+        display: flex;
+        justify-content: center;
+        text-align: center;
+      }
+
+      pre {
+        font-weight: 900;
+        font-size: larger;
+      }
+
+      #rgb-display {
+        margin-top: 12px;
+        display: flex;
+        justify-content: center;
+        box-sizing: border-box;
+        font-weight: 900;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <h1 style="font-weight: 900; text-decoration: underline">
+        Welcome to Smart light color picker web page :
+      </h1>
+    </div>
+    <section id="Show_picked_color">
+      <div id="div">You picked Color :</div>
+    </section>
+
+    <div id="Select_color">
+      <label for="Pick your color : "><pre> Pick your color : </pre></label>
+      <input type="color" id="color-input" />
+    </div>
+
+    <div id="btn">
+      <button onclick="makeRequest()" id="submit-btn">Click Me</button>
+    </div>
+
+    <!-- <a href=\"makeRequest()\"\`><button style="border: 1px solid rgb(201, 192, 176); width: 120px; height: 25px;border-radius: 5px;" > BuzzerON </button></a> -->
+
+    <div id="rgb-display"></div>
+
+    <script>
+      const colorInput = document.getElementById("color-input");
+      const ShowPickedColor = document.getElementById("Show_picked_color");
+
+      const submitBtn = document.getElementById("submit-btn");
+      const rgbDisplay = document.getElementById("rgb-display");
+
+      colorInput.addEventListener("input", () => {
+        const colorCode = colorInput.value;
+        ShowPickedColor.style.backgroundColor = colorCode;
+        console.log(colorCode);
+      });
+
+      submitBtn.addEventListener("click", () => {
+        const rgb = hexToRgb(colorInput.value);
+        const queryParams = `?r=${rgb.r}&g=${rgb.g}&b=${rgb.b}`;
+        rgbDisplay.innerText = `RGB VAL. OF PICKED COLOR: (${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      });
+
+      function hexToRgb(hex) {
+        const bigint = parseInt(hex.slice(1), 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return { r, g, b };
+      }
+
+      function makeRequest() {
+        let data = colorInput.value ;
+        window.open(`${data}`);
+        // open(`${data}`);
+      }
+    </script>
+  </body>
+</html>
